@@ -27,8 +27,8 @@ The optimized architecture was validated using Stratified K-Fold CV to ensure ri
 
 | Metric | Score |
 | :--- | :--- |
-| **Cross-Validation Accuracy** | **0.927** |
-| **Cross-Validation F1 (Macro)** | **0.927** |
+| **Cross-Validation Accuracy** | **0.9263** |
+| **Cross-Validation F1 (Macro)** | **0.9265** |
 
 ### Biological Separability (UMAP & PCA)
 Unsupervised projections demonstrate clear structural clustering of the epigenetic profiles across the three clinical states prior to model training.
