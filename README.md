@@ -12,9 +12,15 @@ The data relies on structural and signal profiles sourced from the **ENCODE Proj
 *   **Signal Data (.bigWig):** Epigenetic enrichment and chromatin accessibility.
 *   **Control Data (.bam):** Raw alignment sequencing depths and mapping qualities. Alignment files were indexed via `samtools` to generate `.bai` indices, enabling rapid, memory-efficient coordinate extraction across the genome.
 *   **Feature Engineering:** 
-    * Aggregated entire autosomes into 50,000 bp resolution bins (yielding ~181,800 total genomic regions).
+    * Aggregated entire autosomes into 50,000 bp resolution bins (yielding ~181,890 total genomic regions).
     * Extracted localized statistical markers (signal variability, ranges, and densities).
     * Normalized raw epigenetic signals against alignment control coverage to strip away sequencing hardware noise.
+
+### Target Class Mapping
+For all analytical visualizations (PCA, UMAP, and SHAP), the clinical states are mapped as follows:
+*   **Class 0:** Baseline (Control)
+*   **Class 1:** Moderate Cognitive Impairment (MCI)
+*   **Class 2:** Cognitive Impairment (CI)
 
 ## 🏗️ Pipeline Architecture
 1.  **Mutual Information Filtering:** Applied `mutual_info_classif` to aggressively prune the high-dimensional genomic space, isolating only the base features with statistically significant target correlation.
@@ -36,9 +42,9 @@ Unsupervised projections demonstrate clear structural clustering of the epigenet
 ![Dimensionality Reduction](images/dimensionality_reduction_2d.png)
 
 ## 🔬 Explainable AI & Biomarker Discovery
-To validate the model's clinical relevance, **SHAP (SHapley Additive exPlanations)** was utilized to extract global feature attributions. The analysis confirmed the model relies heavily on regional transcription depth (`control`) and chromatin accessibility ranges (`signal_range`). 
+To validate the model's clinical relevance, **SHAP (SHapley Additive exPlanations)** was utilized to extract multi-class global feature attributions. The analysis confirmed the model relies heavily on regional transcription depth (`control`) and chromatin accessibility ranges (`signal_range`). 
 
-To isolate the absolute most critical biomarkers, the model was retrained **exclusively on the Top 20 SHAP-identified features**, achieving a **0.95 Macro F1-Score** on the holdout set, proving these highly specific epigenetic interactions are sufficient to classify cognitive decline.
+To isolate the absolute most critical biomarkers, the model was retrained **exclusively on the Top 20 SHAP-identified features**, achieving a **0.94 Macro F1-Score** on the holdout set, proving these highly specific epigenetic interactions are sufficient to classify cognitive decline.
 
 ![SHAP Summary Plot](images/shap_summary_plot.png)
 
